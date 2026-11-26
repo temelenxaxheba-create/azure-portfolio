@@ -27,3 +27,6 @@ I'm learning Microsoft Azure and building real cloud projects while studying for
 ## Contact
 - GitHub: github.com/temelenxaxheba-create
 - Location: Port Elizabeth, South Africa
+- Built a Storage Account using Bicep code (main.bicep)
+- Used Standard_LRS - the cheapest storage option
+- Learned Infrastructure as Code instead of clicking in the portal
