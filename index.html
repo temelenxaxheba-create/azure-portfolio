@@ -23,10 +23,19 @@
       padding: 20px;
       margin-top: 20px;
     }
-    a { color: #58a6ff; text-decoration: none; }
+    a { color: #58a6ff; text-decoration: none; font-weight: 500; }
     a:hover { text-decoration: underline; }
     ul { padding-left: 20px; }
     li { margin-bottom: 8px; }
+    .tag {
+      display: inline-block;
+      background: #21262d;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 2px 10px;
+      font-size: 0.8rem;
+      margin-top: 6px;
+    }
   </style>
 </head>
 <body>
@@ -36,13 +45,22 @@
 
   <div class="card">
     <h2>About Me</h2>
-    <p>I am a recent matriculant based in South Africa building a career in cloud computing and IT infrastructure. I am currently self-studying Microsoft Azure fundamentals and version control with GitHub.</p>
+    <p>I am a recent matriculant based in Gqeberha, South Africa building a career in cloud computing and IT infrastructure. I am currently self-studying Microsoft Azure fundamentals and version control with GitHub.</p>
+  </div>
+
+  <div class="card">
+    <h2>Featured Projects</h2>
+    <p>
+      <a href="https://github.io" target="_blank">Azure Storage Cost Estimator ↗</a><br>
+      Interactive calculator comparing monthly pricing across Azure Hot, Cool, and Archive storage tiers.<br>
+      <span class="tag">HTML / CSS / JS</span> <span class="tag">Azure Storage</span> <span class="tag">GitHub Pages</span>
+    </p>
   </div>
 
   <div class="card">
     <h2>Current Learning Roadmap</h2>
     <ul>
-      <li><strong>Git & GitHub:</strong> Hosting static websites via GitHub Pages (Completed)</li>
+      <li><strong>Git & GitHub:</strong> Hosting static web apps via GitHub Pages (Completed)</li>
       <li><strong>AZ-900 (Microsoft Azure Fundamentals):</strong> Cloud Concepts & Core Azure Services (In Progress)</li>
       <li><strong>Next Goal:</strong> CompTIA A+ / IT Technical Support Fundamentals</li>
     </ul>
@@ -58,4 +76,5 @@
 
 </body>
 </html>
+
 
