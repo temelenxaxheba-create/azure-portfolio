@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AZ-900 Practice Quiz | Temelenxaxheba</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: #0d1117;
+      color: #e6edf3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .quiz-container {
+      background-color: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      max-width: 600px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #30363d;
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      font-size: 1.3rem;
+      color: #58a6ff;
+    }
+
+    .back-link {
+      color: #8b949e;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .back-link:hover {
+      color: #58a6ff;
+    }
+
+    .progress {
+      font-size: 0.9rem;
+      color: #8b949e;
+      margin-bottom: 12px;
+    }
+
+    .question-text {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-btn {
+      background-color: #21262d;
+      color: #e6edf3;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 14px;
+      text-align: left;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background-color: #30363d;
+      border-color: #58a6ff;
+    }
+
+    .option-btn.correct {
+      background-color: rgba(46, 160, 67, 0.2);
+      border-color: #3fb950;
+      color: #3fb950;
+    }
+
+    .option-btn.wrong {
+      background-color: rgba(248, 81, 73, 0.2);
+      border-color: #f85149;
+      color: #f85149;
+    }
+
+    .explanation {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 8px;
+      background-color: #0d1117;
+      border-left: 4px solid #58a6ff;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      display: none;
+    }
+
+    .next-btn, .restart-btn {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background-color: #238636;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: none;
+    }
+
+    .next-btn:hover, .restart-btn:hover {
+      background-color: #2ea043;
+    }
+
+    .result-box {
+      text-align: center;
+      display: none;
+    }
+
+    .result-box h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #58a6ff;
+    }
+
+    .result-box p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <div class="header">
+      <h1>☁️ AZ-900 Practice Quiz</h1>
+      <a href="index.html" class="back-link">← Portfolio</a>
+    </div>
+
+    <div id="quiz-box">
+      <div class="progress" id="progress">Question 1 of 5</div>
+      <div class="question-text" id="question">Loading question...</div>
+      <div class="options" id="options"></div>
+      <div class="explanation" id="explanation"></div>
+      <button class="next-btn" id="next-btn">Next Question</button>
+    </div>
+
+    <div class="result-box" id="result-box">
+      <h2>Quiz Complete!</h2>
+      <p id="score-text"></p>
+      <button class="restart-btn" id="restart-btn" style="display: block;">Retake Quiz</button>
+    </div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        question: "Which cloud service model gives you the most control over the operating system and installed software?",
+        options: [
+          "Software as a Service (SaaS)",
+          "Platform as a Service (PaaS)",
+          "Infrastructure as a Service (IaaS)",
+          "Function as a Service (FaaS)"
+        ],
+        answer: 2,
+        explanation: "IaaS provides virtualized computing resources over the internet, giving you full control over the virtual machine's OS and configuration."
+      },
+      {
+        question: "Which Azure storage redundancy option is the cheapest and replicates data three times within a single data center?",
+        options: [
+          "Geo-redundant storage (GRS)",
+          "Locally redundant storage (LRS)",
+          "Zone-redundant storage (ZRS)",
+          "Read-access geo-redundant storage (RA-GRS)"
+        ],
+        answer: 1,
+        explanation: "Locally redundant storage (LRS) is the lowest-cost option and copies your data synchronously three times within a single physical location."
+      },
+      {
+        question: "What type of expenditure is paying for Azure cloud resources on a pay-as-you-go basis?",
+        options: [
+          "Capital Expenditure (CapEx)",
+          "Operational Expenditure (OpEx)",
+          "Fixed Expenditure",
+          "Upfront Infrastructure Cost"
+        ],
+        answer: 1,
+        explanation: "Cloud computing shifts spending from CapEx (upfront physical hardware) to OpEx (paying only for services and resources as you consume them)."
+      },
+      {
+        question: "Which Azure service is used to deploy and manage infrastructure using declarative code templates like Bicep or JSON?",
+        options: [
+          "Azure Monitor",
+          "Azure Resource Manager (ARM)",
+          "Azure Active Directory (Entra ID)",
+          "Azure Advisor"
+        ],
+        answer: 1,
+        explanation: "Azure Resource Manager (ARM) is the deployment and management service for Azure that processes Bicep and ARM templates."
+      },
+      {
+        question: "What is the main benefit of deploying resources across multiple Azure Availability Zones?",
+        options: [
+          "Lower monthly storage costs",
+          "Protection against entire data center failures",
+          "Automatic code compilation",
+          "Unlimited free bandwidth"
+        ],
+        answer: 1,
+        explanation: "Availability Zones are physically separate data centers within an Azure region with independent power, cooling, and networking."
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    const progressEl = document.getElementById("progress");
+    const questionEl = document.getElementById("question");
+    const optionsEl = document.getElementById("options");
+    const explanationEl = document.getElementById("explanation");
+    const nextBtn = document.getElementById("next-btn");
+    const quizBox = document.getElementById("quiz-box");
+    const resultBox = document.getElementById("result-box");
+    const scoreText = document.getElementById("score-text");
+    const restartBtn = document.getElementById("restart-btn");
+
+    function loadQuestion() {
+      const current = quizData[currentQuestion];
+      progressEl.textContent = `Question ${currentQuestion + 1} of ${quizData.length}`;
+      questionEl.textContent = current.question;
+      optionsEl.innerHTML = "";
+      explanationEl.style.display = "none";
+      nextBtn.style.display = "none";
+
+      current.options.forEach((option, index) => {
+        const btn = document.createElement("button");
+        btn.classList.add("option-btn");
+        btn.textContent = option;
+        btn.onclick = () => selectAnswer(index, btn);
+        optionsEl.appendChild(btn);
+      });
+    }
+
+    function selectAnswer(selectedIndex, selectedBtn) {
+      const current = quizData[currentQuestion];
+      const allButtons = optionsEl.querySelectorAll(".option-btn");
+
+      allButtons.forEach((btn, index) => {
+        btn.disabled = true;
+        if (index === current.answer) {
+          btn.classList.add("correct");
+        }
+      });
+
+      if (selectedIndex === current.answer) {
+        score++;
+      } else {
+        selectedBtn.classList.add("wrong");
+      }
+
+      explanationEl.textContent = current.explanation;
+      explanationEl.style.display = "block";
+      nextBtn.style.display = "block";
+    }
+
+    nextBtn.onclick = () => {
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        showResults();
+      }
+    };
+
+    function showResults() {
+      quizBox.style.display = "none";
+      resultBox.style.display = "block";
+      scoreText.textContent = `You scored ${score} out of ${quizData.length}!`;
+    }
+
+    restartBtn.onclick = () => {
+      currentQuestion = 0;
+      score = 0;
+      resultBox.style.display = "none";
+      quizBox.style.display = "block";
+      loadQuestion();
+    };
+
+    loadQuestion();
+  </script>
+
+</body>
+</html>
